@@ -440,8 +440,13 @@ function sortCitiesArray(arr) {
  *           [0,0,0,1,0],
  *           [0,0,0,0,1]]
  */
-function getIdentityMatrix(/* n */) {
-  throw new Error('Not implemented');
+function getIdentityMatrix(n) {
+  const arr = Array(n).fill(0);
+  arr.map((_x, i) => {
+    arr.splice(i, 1, Array(n).fill(0).fill(1, i, i + 1));
+    return arr;
+  });
+  return arr;
 }
 
 /**
@@ -506,8 +511,17 @@ function distinct(arr) {
  *    "Poland" => ["Lodz"]
  *   }
  */
-function group(/* array, keySelector, valueSelector */) {
-  throw new Error('Not implemented');
+function group(array, keySelector, valueSelector) {
+  const map = new Map();
+  // eslint-disable-next-line array-callback-return
+  array.map((x) => {
+    const key = keySelector(x);
+    const value = valueSelector(x);
+    if (map.has(key)) {
+      map.get(key).push(value);
+    } else map.set(key, [value]);
+  });
+  return map;
 }
 
 
@@ -541,8 +555,13 @@ function selectMany(arr, childrenSelector) {
  *   ['one','two','three'], [2]       => 'three'  (arr[2])
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
-function getElementByIndexes(/* arr, indexes */) {
-  throw new Error('Not implemented');
+function getElementByIndexes(arr, indexes) {
+  // eslint-disable-next-line array-callback-return
+  indexes.map((x, i) => {
+    // eslint-disable-next-line no-param-reassign
+    arr = arr[indexes[i]];
+  });
+  return arr;
 }
 
 
